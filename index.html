@@ -14,37 +14,85 @@
     font-family:Arial,sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:#050505;
     color:white;
 }
 
+/* HEADER */
 header{
     background:#111;
-    padding:20px;
+    padding:25px 15px 20px;
     text-align:center;
     border-bottom:2px solid #d4af37;
 }
 
-header h1{
+.logo-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+}
+
+.logo-box img{
+    width:65px;
+    height:65px;
+    object-fit:contain;
+}
+
+.logo-box h1{
     color:#d4af37;
     font-size:32px;
 }
 
-header p{
+.logo-box p{
     color:#aaa;
-    margin-top:6px;
+    margin-top:5px;
+    font-size:13px;
 }
 
+/* SEARCH */
+.search-box{
+    max-width:650px;
+    margin:25px auto 0;
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+    padding:15px 20px;
+    border-radius:30px;
+    border:1px solid #444;
+    background:#181818;
+    color:white;
+    font-size:15px;
+    outline:none;
+}
+
+.search-box input:focus{
+    border-color:#d4af37;
+}
+
+.search-icon{
+    position:absolute;
+    right:18px;
+    top:13px;
+    font-size:20px;
+}
+
+/* HERO */
 .hero{
     text-align:center;
-    padding:70px 20px;
-    background:linear-gradient(135deg,#050505,#171717);
+    padding:55px 20px 35px;
 }
 
 .hero h2{
-    font-size:40px;
-    margin-bottom:15px;
+    font-size:38px;
+    margin-bottom:12px;
 }
 
 .hero h2 span{
@@ -52,32 +100,20 @@ header p{
 }
 
 .hero p{
-    color:#bbb;
-    max-width:600px;
-    margin:auto;
+    color:#aaa;
     line-height:1.6;
 }
 
-.btn{
-    display:inline-block;
-    margin-top:25px;
-    padding:13px 25px;
-    background:#d4af37;
-    color:#000;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:bold;
-}
-
+/* MAIN */
 section{
-    padding:45px 20px;
     max-width:1000px;
     margin:auto;
+    padding:40px 20px;
 }
 
 .title{
     text-align:center;
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
 
 .title h2{
@@ -85,234 +121,719 @@ section{
     font-size:28px;
 }
 
-.cards{
+/* CATEGORY */
+.categories{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+    gap:18px;
 }
 
-.card{
+.category{
     background:#111;
-    padding:25px;
-    border-radius:12px;
     border:1px solid #333;
-    text-align:center;
+    border-radius:12px;
+    padding:22px;
+    text-decoration:none;
+    color:white;
+    transition:.2s;
 }
 
-.card h3{
+.category:hover{
+    border-color:#d4af37;
+    transform:translateY(-3px);
+}
+
+.category h3{
     color:#d4af37;
-    margin-bottom:10px;
+    margin-bottom:8px;
 }
 
-.card p{
-    color:#aaa;
+.category p{
+    color:#999;
+    font-size:14px;
     line-height:1.5;
 }
 
-.contact{
-    text-align:center;
-    background:#111;
-    border-top:1px solid #333;
+/* SUB CATEGORY */
+.sub-section{
+    display:none;
+    margin-top:30px;
 }
 
-.social a{
+.sub-section:target{
+    display:block;
+}
+
+.back{
     display:inline-block;
-    margin:8px;
+    margin-bottom:18px;
     color:#d4af37;
     text-decoration:none;
     font-weight:bold;
 }
-.logo-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
+
+.items{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.logo-box img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
+.item{
+    display:block;
+    background:#111;
+    border:1px solid #333;
+    border-radius:9px;
+    padding:16px 18px;
+    color:white;
+    text-decoration:none;
+    transition:.2s;
 }
 
-.logo-box h1 {
-    margin: 0;
+.item:hover{
+    border-color:#d4af37;
+    color:#d4af37;
 }
 
-.logo-box p {
-    margin: 5px 0 0;
+.item span{
+    color:#d4af37;
+    font-weight:bold;
+    margin-right:8px;
 }
-    
+
+/* PROMPT POSTS */
+.prompt-post{
+    background:#111;
+    border:1px solid #333;
+    border-radius:14px;
+    padding:20px;
+    margin-top:18px;
+}
+
+.prompt-post h3{
+    color:#d4af37;
+    margin-bottom:15px;
+}
+
+.prompt-post img{
+    width:100%;
+    max-height:500px;
+    object-fit:cover;
+    border-radius:10px;
+    display:block;
+}
+
+.prompt-box{
+    margin-top:15px;
+    background:#080808;
+    border:1px solid #333;
+    border-radius:8px;
+    padding:15px;
+}
+
+.prompt-box p{
+    color:#aaa;
+    line-height:1.7;
+    font-size:14px;
+}
+
+.copy-btn{
+    margin-top:12px;
+    padding:11px 18px;
+    background:#d4af37;
+    color:#000;
+    border:0;
+    border-radius:7px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.copy-btn:hover{
+    opacity:.9;
+}
+
+/* CONTACT */
+.contact{
+    background:#111;
+    border-top:1px solid #333;
+    border-bottom:1px solid #333;
+    text-align:center;
+}
+
+.social{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.social a{
+    padding:12px 20px;
+    border:1px solid #333;
+    border-radius:8px;
+    color:#d4af37;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.social a:hover{
+    border-color:#d4af37;
+}
+
+/* FOOTER */
 footer{
     text-align:center;
-    padding:20px;
+    padding:22px;
     color:#777;
     background:#050505;
+    font-size:13px;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+    .logo-box h1{
+        font-size:27px;
+    }
+
+    .logo-box img{
+        width:55px;
+        height:55px;
+    }
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .categories{
+        grid-template-columns:1fr;
+    }
+
+    section{
+        padding:30px 15px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
+
     <div class="logo-box">
+
         <img src="logo.png" alt="AR PICTURE Logo">
+
         <div>
             <h1>AR PICTURE</h1>
-            <p>Photo Editing • AI Prompts • Creative Studio</p>
+            <p>AI Prompts • Gaming • Creative Studio</p>
         </div>
+
     </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search prompts, photos, videos..."
+            onkeyup="searchContent()">
+
+        <span class="search-icon">🔍</span>
+
+    </div>
+
 </header>
 
+
+<!-- HERO -->
 <div class="hero">
 
-<h2>Welcome to <span>AR PICTURE</span></h2>
+    <h2>Welcome to <span>AR PICTURE</span></h2>
 
-<p>Creative Editing & AI Studio</p>
-
-<p>
-Photo Editing • AI Prompts • Poster Design • Video Editing
-</p>
-
-<a href="#services" class="btn">Explore Services</a>
-
-<a href="#contact" class="btn">Contact Us</a>
-
-</div>
-
-<section id="services">
-
-<div class="title">
-<h2>Our Services</h2>
-</div>
-
-<div class="cards">
-
-<div class="card">
-<div class="card">
-    <h3>🎮 Free Fire Gaming</h3>
-
-    <p>Free Fire Gaming Content:</p>
-
-    <ul style="text-align:left; color:#aaa; line-height:1.8; margin:15px 0;">
-        <li>🔥 Free Fire MAX Gameplay</li>
-        <li>🎯 Headshot & 1v1 Gameplay</li>
-        <li>🏆 Custom Room Matches</li>
-        <li>🎬 Gaming Highlights & Shorts</li>
-        <li>📱 Gaming Tips & Settings</li>
-    </ul>
-
-    <a href="#" class="btn">
-        Watch Videos
-    </a>
-</div>
-
-<div class="card">
-
-    <h3>🤖 AI Prompts</h3>
-
-    <p>Choose a prompt category:</p>
-
-    <!-- Photo Prompts -->
-    <h4>🖼️ Photo Prompts</h4>
-    <p style="color:#aaa;">
-        AI photos and their ready-to-copy prompts.
+    <p>
+        AI Prompts, Gaming, Creative Designs & Digital Content
     </p>
 
-    <a href="#photo-prompts" class="btn">
-        View Photo Prompts
-    </a>
-
-    <!-- Video Prompts -->
-    <h4 style="margin-top:20px;">🎬 Video Prompts</h4>
-    <p style="color:#aaa;">
-        AI video prompts for cinematic videos, reels and Shorts.
-    </p>
-
-    <a href="#video-prompts" class="btn">
-        View Video Prompts
-    </a>
-
-    <!-- Logo Prompts -->
-    <h4 style="margin-top:20px;">🎨 Logo Design Prompts</h4>
-    <p style="color:#aaa;">
-        AI prompts for professional logo designs.
-    </p>
-
-    <a href="#logo-prompts" class="btn">
-        View Logo Prompts
-    </a>
-
-    <!-- Thumbnail & Poster Prompts -->
-    <h4 style="margin-top:20px;">🖼️ Poster & Thumbnail Prompts</h4>
-    <p style="color:#aaa;">
-        AI prompts for YouTube thumbnails, posters and social media designs.
-    </p>
-
-    <a href="#thumbnail-prompts" class="btn">
-        View Thumbnail Prompts
-    </a>
-
 </div>
 
-<div class="card">
-<h3>🎨 Poster Design</h3>
-<p>
-Modern promotional posters, thumbnails,
-social media designs and branding.
-</p>
-</div>
 
-<div class="card">
-<h3>🎬 Video Editing</h3>
-<p>
-Cinematic reels, Shorts, social media videos
-and creative video editing.
-</p>
-</div>
+<!-- MAIN CATEGORIES -->
+<section id="categories">
 
-</div>
+    <div class="title">
+        <h2>Categories</h2>
+    </div>
+
+    <div class="categories">
+
+        <a href="#freefire" class="category">
+            <h3>🎮 Free Fire</h3>
+            <p>Gaming, gameplay, headshots, settings and highlights.</p>
+        </a>
+
+        <a href="#ai-prompts" class="category">
+            <h3>🤖 AI Prompts</h3>
+            <p>Photo, video, logo, poster and thumbnail prompts.</p>
+        </a>
+
+        <a href="#poster-design" class="category">
+            <h3>🎨 Poster Design</h3>
+            <p>Creative posters, promotional designs and graphics.</p>
+        </a>
+
+        <a href="#video" class="category">
+            <h3>🎬 Video</h3>
+            <p>Cinematic videos, reels, Shorts and editing content.</p>
+        </a>
+
+    </div>
+
+
+    <!-- FREE FIRE -->
+    <div id="freefire" class="sub-section">
+
+        <a href="#categories" class="back">← Back to Categories</a>
+
+        <div class="title">
+            <h2>🎮 Free Fire</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Gameplay
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Headshot
+            </a>
+
+            <a href="#" class="item">
+                <span>3.</span> 1v1 / 1v4
+            </a>
+
+            <a href="#" class="item">
+                <span>4.</span> Custom Room
+            </a>
+
+            <a href="#" class="item">
+                <span>5.</span> Tips & Settings
+            </a>
+
+            <a href="#" class="item">
+                <span>6.</span> Gaming Highlights
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- AI PROMPTS -->
+    <div id="ai-prompts" class="sub-section">
+
+        <a href="#categories" class="back">← Back to Categories</a>
+
+        <div class="title">
+            <h2>🤖 AI Prompts</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#photo-prompts" class="item">
+                <span>1.</span> 🖼️ Photo Prompts
+            </a>
+
+            <a href="#video-prompts" class="item">
+                <span>2.</span> 🎬 Video Prompts
+            </a>
+
+            <a href="#logo-prompts" class="item">
+                <span>3.</span> 🎨 Logo Prompts
+            </a>
+
+            <a href="#thumbnail-prompts" class="item">
+                <span>4.</span> 🎯 Thumbnail Prompts
+            </a>
+
+            <a href="#poster-prompts" class="item">
+                <span>5.</span> 🖼️ Poster Prompts
+            </a>
+
+            <a href="#social-prompts" class="item">
+                <span>6.</span> 📱 Social Media Prompts
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- PHOTO PROMPTS -->
+    <div id="photo-prompts" class="sub-section">
+
+        <a href="#ai-prompts" class="back">← Back to AI Prompts</a>
+
+        <div class="title">
+            <h2>🖼️ Photo Prompts</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#photo1" class="item">
+                <span>1.</span> Photo 1
+            </a>
+
+            <a href="#photo2" class="item">
+                <span>2.</span> Photo 2
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- PHOTO 1 -->
+    <div id="photo1" class="sub-section">
+
+        <a href="#photo-prompts" class="back">
+            ← Back to Photo Prompts
+        </a>
+
+        <div class="prompt-post">
+
+            <h3>📸 Photo 1</h3>
+
+            <img src="photo1.jpg" alt="AI Photo 1">
+
+            <div class="prompt-box">
+
+                <p id="prompt1">
+                    यहाँ Photo 1 का पूरा AI prompt रहेगा।
+                    बाद में आप अपना prompt यहाँ डाल सकते हैं।
+                </p>
+
+                <button class="copy-btn"
+                        onclick="copyPrompt('prompt1')">
+                    📋 Copy Prompt
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PHOTO 2 -->
+    <div id="photo2" class="sub-section">
+
+        <a href="#photo-prompts" class="back">
+            ← Back to Photo Prompts
+        </a>
+
+        <div class="prompt-post">
+
+            <h3>📸 Photo 2</h3>
+
+            <img src="photo2.jpg" alt="AI Photo 2">
+
+            <div class="prompt-box">
+
+                <p id="prompt2">
+                    यहाँ Photo 2 का पूरा AI prompt रहेगा।
+                    बाद में आप अपना prompt यहाँ डाल सकते हैं।
+                </p>
+
+                <button class="copy-btn"
+                        onclick="copyPrompt('prompt2')">
+                    📋 Copy Prompt
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- VIDEO PROMPTS -->
+    <div id="video-prompts" class="sub-section">
+
+        <a href="#ai-prompts" class="back">← Back to AI Prompts</a>
+
+        <div class="title">
+            <h2>🎬 Video Prompts</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Video 1
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Video 2
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOGO PROMPTS -->
+    <div id="logo-prompts" class="sub-section">
+
+        <a href="#ai-prompts" class="back">← Back to AI Prompts</a>
+
+        <div class="title">
+            <h2>🎨 Logo Prompts</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Logo 1
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Logo 2
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- THUMBNAIL PROMPTS -->
+    <div id="thumbnail-prompts" class="sub-section">
+
+        <a href="#ai-prompts" class="back">← Back to AI Prompts</a>
+
+        <div class="title">
+            <h2>🎯 Thumbnail Prompts</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Thumbnail 1
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Thumbnail 2
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- POSTER PROMPTS -->
+    <div id="poster-prompts" class="sub-section">
+
+        <a href="#ai-prompts" class="back">← Back to AI Prompts</a>
+
+        <div class="title">
+            <h2>🖼️ Poster Prompts</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Poster 1
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Poster 2
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- SOCIAL MEDIA PROMPTS -->
+    <div id="social-prompts" class="sub-section">
+
+        <a href="#ai-prompts" class="back">← Back to AI Prompts</a>
+
+        <div class="title">
+            <h2>📱 Social Media Prompts</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Instagram Post
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Instagram Story
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- POSTER DESIGN -->
+    <div id="poster-design" class="sub-section">
+
+        <a href="#categories" class="back">← Back to Categories</a>
+
+        <div class="title">
+            <h2>🎨 Poster Design</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Wedding Poster
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Gaming Poster
+            </a>
+
+            <a href="#" class="item">
+                <span>3.</span> Business Poster
+            </a>
+
+            <a href="#" class="item">
+                <span>4.</span> Festival Poster
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- VIDEO -->
+    <div id="video" class="sub-section">
+
+        <a href="#categories" class="back">← Back to Categories</a>
+
+        <div class="title">
+            <h2>🎬 Video</h2>
+        </div>
+
+        <div class="items">
+
+            <a href="#" class="item">
+                <span>1.</span> Cinematic Video
+            </a>
+
+            <a href="#" class="item">
+                <span>2.</span> Instagram Reel
+            </a>
+
+            <a href="#" class="item">
+                <span>3.</span> YouTube Short
+            </a>
+
+            <a href="#" class="item">
+                <span>4.</span> Gaming Video
+            </a>
+
+        </div>
+
+    </div>
+
 </section>
 
-<section>
 
-<div class="title">
-<h2>About AR PICTURE</h2>
-</div>
-
-<div class="card">
-
-<p>
-AR PICTURE is a creative digital studio focused on
-photo editing, AI creativity, video editing and
-modern digital designs.
-</p>
-
-</div>
-
-</section>
-
+<!-- CONTACT -->
 <section id="contact" class="contact">
 
-<div class="title">
-<h2>Connect With Us</h2>
-</div>
+    <div class="title">
+        <h2>Connect With Us</h2>
+    </div>
 
-<div class="social">
+    <div class="social">
 
-<a href="https://wa.me/919106045564" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/919106045564"
+           target="_blank">
+            💬 WhatsApp
+        </a>
 
-<a href="https://www.instagram.com/im_aarjun_v12/" target="_blank">Instagram</a>
+        <a href="https://www.instagram.com/im_aarjun_v12/"
+           target="_blank">
+            📸 Instagram
+        </a>
 
-<a href="#">YouTube</a>
+        <a href="#"
+           onclick="alert('YouTube channel will be added soon!'); return false;">
+            ▶️ YouTube
+        </a>
 
-</div>
+    </div>
 
 </section>
 
+
+<!-- FOOTER -->
 <footer>
-© 2026 AR PICTURE — All Rights Reserved
+    © 2026 AR PICTURE — All Rights Reserved
 </footer>
 
+
+<script>
+
+/* COPY PROMPT */
+function copyPrompt(id){
+
+    const text =
+        document.getElementById(id).innerText;
+
+    navigator.clipboard.writeText(text)
+    .then(function(){
+
+        alert("Prompt copied successfully!");
+
+    })
+    .catch(function(){
+
+        alert("Copy failed. Please copy manually.");
+
+    });
+
+}
+
+
+/* SEARCH */
+function searchContent(){
+
+    const input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const items =
+        document.querySelectorAll(".item");
+
+    items.forEach(function(item){
+
+        const text =
+            item.innerText.toLowerCase();
+
+        if(text.includes(input)){
+
+            item.style.display = "block";
+
+        }else{
+
+            item.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
 </body>
-</html>
+                </html>
