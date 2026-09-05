@@ -1,39 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
 
-<title>AR PICTURE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
+    body {
+      background-color: #08090c;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
 
-html{
-    scroll-behavior:smooth;
-}
+    .container {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-body{
-    background:#050505;
-    color:white;
-}
+    /* Heading */
+    h1 {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 54px;
+      letter-spacing: 3px;
+      color: #ffffff;
+      line-height: 1;
+    }
 
-/* HEADER */
-header{
-    background:#111;
-    padding:25px 15px 20px;
-    text-align:center;
-    border-bottom:2px solid #d4af37;
-}
+    .tagline {
+      color: #8c92a4;
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
 
-.logo-box{
-    display:flex;
-    align-items:center;
+    /* Cards */
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .card-clickable {
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: #8c92a4;
+      margin-top: 4px;
+    }
+
+    /* AI Gallery Drawer */
+    .gallery-box {
+      display: none;
+      background: #11141c;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: left;
+    }
+
+    /* 🔍 SEARCH BAR STYLING */
+    .search-container {
+      margin-bottom: 15px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #1a1e29;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #ff3b3b;
+    }
+
+    .search-input::placeholder {
+      color: #6c7280;
+    }
+
+    /* AI Card Items */
+    .ai-item-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .photo-preview {
+      width: 100%;
+      height: 180px;
+      background: #1c202b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8c92a4;
+      font-size: 13px;
+    }
+
+    .photo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .prompt-box {
+      padding: 10px;
+    }
+
+    .prompt-text {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #d1d5db;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .copy-btn {
+      width: 100%;
+      background: #2b3040;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .no-results {
+      text-align: center;
+      color: #8c92a4;
+      font-size: 13px;
+      padding: 15px 0;
+      display: none;
+    }
+
+    /* Buttons & Badges */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .btn-wa { background: #25d366; }
+    .btn-ig { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+    .contact-no { font-size: 13px; color: #8c92a4; }
+    .divider { width: 60%; height: 1px; background: rgba(255, 255, 255, 0.15); margin: 10px auto 5px; }
+    .coming-soon-title { font-size: 14px; font-weight: 700; letter-spacing: 2px; color: #ffffff; text-transform: uppercase; }
+    .coming-soon-desc { font-size: 11px; color: #6d7385; margin-top: -8px; }
+    .badges-row { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
+    .badge-circle { width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #a0a6b5; }
+    .badge-circle span { font-size: 8px; font-weight: 400; color: #606778; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div>
+      <h1>AR PICTURE</h1>
+      <p class="tagline">CREATOR • BLOGGER</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">PHOTO EDITING</div>
+      <div class="card-desc">Editing • Retouching • Grading</div>
+    </div>
+
+    <!-- Clickable Gallery -->
+    <div class="card card-clickable" onclick="toggleGallery()">
+      <div class="card-title">AI PHOTO & PROMPTS ▾</div>
+      <div class="card-desc">AI Images • Search Prompts (Tap to Open)</div>
+    </div>
+
+    <!-- Expandable Search + Gallery Section -->
+    <div class="gallery-box" id="myGallery">
+      
+      <!-- Search Input Box -->
+      <div class="search-container">
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="🔍 Search photo or prompt (e.g. city, anime)..." 
+          onkeyup="filterCards()"
+        />
+      </div>
+
+      <!-- Container jahan cards render honge -->
+      <div id="cardsList"></div>
+      <div id="noResultsText" class="no-results">Koi matching prompt nahi mila 😕</div>
+    </div>
+
+    <a href="https://wa.me/919876543210" class="btn btn-wa">💬 WhatsApp</a>
+    <a href="https://instagram.com/your_username" class="btn btn-ig">📸 Instagram</a>
+
+    <div class="contact-no">📱 Contact: +91 98765 43210</div>
+
+    <div class="divider"></div>
+
+    <div class="coming-soon-title">COMING SOON</div>
+    <div class="coming-soon-desc">More features coming...</div>
+
+    <div class="badges-row">
+      <div class="badge-circle">BG<span>Blogging</span></div>
+      <div class="badge-circle">VE<span>Editing</span></div>
+      <div class="badge-circle">CC<span>Creation</span></div>
+    </div>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // 📸 AAPKA DATA (Jitne chahe photo & prompt dalein)
+    // ==========================================
+    const myAIPrompts = [
+      {
+        title: "City Portrait",
+        image: "photo1.jpg", 
+        prompt: "Ultra-realistic cinematic 8k portrait standing in Gujarat city lights, neon reflections."
+      },
+      {
+        title: "Village Sunset",
+        image: "photo2.jpg", 
+        prompt: "Dramatic village sunset with golden clouds, hyper-detailed photography, 35mm lens."
+      },
+      {
+        title: "3D Animation",
+        image: "photo3.jpg", 
+        prompt: "3D animated character walking on road, Pixar style, high details, golden hour lighting."
+      }
+    ];
+
+    // Card Render Logic
+    const cardsList = document.getElementById('cardsList');
+
+    function renderCards(data) {
+      cardsList.innerHTML = '';
+      data.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'ai-item-card';
+        card.innerHTML = `
+          <div class="photo-preview">
+            <img src="${item.image}" alt="${item.title}" onerror="this.parentElement.innerHTML='🖼️ [ ${item.title} Preview ]'">
+          </div>
+          <div class="prompt-box">
+            <div class="prompt-text">${item.prompt}</div>
+            <button class="copy-btn" onclick="copyPrompt('${item.prompt.replace(/'/g, "\\'")}', this)">📋 Copy Prompt</button>
+          </div>
+        `;
+        cardsList.appendChild(card);
+      });
+    }
+
+    // Initial render
+    renderCards(myAIPrompts);
+
+    // 🔍 LIVE SEARCH FILTER FUNCTION
+    function filterCards() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = myAIPrompts.filter(item => 
+        item.prompt.toLowerCase().includes(query) || 
+        item.title.toLowerCase().includes(query)
+      );
+
+      renderCards(filtered);
+
+      const noResults = document.getElementById('noResultsText');
+      noResults.style.display = filtered.length === 0 ? 'block' : 'none';
+    }
+
+    // Toggle Drawer
+    function toggleGallery() {
+      const box = document.getElementById('myGallery');
+      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+    }
+
+    // Copy Prompt
+    function copyPrompt(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerText = '✅ Copied!';
+        btn.style.background = '#25d366';
+        setTimeout(() => {
+          btn.innerText = '📋 Copy Prompt';
+          btn.style.background = '#2b3040';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
     justify-content:center;
     gap:12px;
 }
