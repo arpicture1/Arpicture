@@ -357,9 +357,14 @@
     }
 
     function toggleGallery() {
-      const box = document.getElementById('myGallery');
-      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-    }
+  const box = document.getElementById('myGallery');
+  if (box.style.display === 'block') {
+    box.style.display = 'none';
+  } else {
+    box.style.display = 'block';
+  }
+}
+
 
     function copyPrompt(text, btn) {
       navigator.clipboard.writeText(text).then(() => {
