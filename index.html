@@ -30,6 +30,38 @@
 <script defer src="/_vercel/insights/script.js"></script>
 
   <style>
+        /* Category Filter Chips Styling */
+    .filter-container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 0 16px 0;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filter-container::-webkit-scrollbar {
+      display: none;
+    }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Outfit', sans-serif;
+    }
+    .filter-btn.active {
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      color: #000000;
+      border-color: transparent;
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -238,6 +270,13 @@
         placeholder="🔍 Search prompt (e.g. portrait, city)..." 
         onkeyup="filterCards()"
       />
+            <div class="filter-container">
+        <button class="filter-btn active" onclick="filterCategory('all', this)">All</button>
+        <button class="filter-btn" onclick="filterCategory('portrait', this)">Portraits</button>
+        <button class="filter-btn" onclick="filterCategory('dark', this)">Dark Aesthetic</button>
+        <button class="filter-btn" onclick="filterCategory('creative', this)">Creative FX</button>
+      </div>
+
       <div id="cardsList"></div>
       <div id="noResultsText" class="no-results">Koi matching prompt nahi mila 😕</div>
     </div>
@@ -261,23 +300,26 @@
   </div>
 
   <script>
-      const myAIPrompts = [
-    {
-      title: "Photo 1 - Golden Hour Sunset",
-      image: "sunset-portrait.jpg",
-      prompt: "Create an ultra-realistic cinematic portrait of a young South Asian man in a serene side profile pose with eyes gently closed. Golden hour sunset background with warm orange gradient lighting. Messy textured fade haircut blowing slightly in the gentle breeze, short trimmed beard and mustache. Wearing a casual black t-shirt with neckband earphones. Hyper-detailed skin texture, soft rim lighting outlining the facial contours, 8k resolution, shot on 85mm portrait lens, photorealistic, dramatic atmosphere."
-    },
-        {
-      title: "Photo 2 - Shattered Glass Portal",
-      image: "glass-shards.png",
-      prompt: "Ultra-realistic cinematic medium shot of a young South Asian man surrounded by levitating shattered glass crystal shards. Bright clear blue sky background with direct sun flare creating glowing refraction highlights through transparent glass pieces. Textured wet crop fade hairstyle, clean trimmed beard, wearing a simple solid lavender-grey crewneck athletic t-shirt. Low-angle shot, sharp depth of field, 8k resolution, commercial photoshoot style, hyper-detailed."
-    },
-
-        {
-      title: "Photo 3 - Dual Tone Smoke Portrait",
-      image: "dark-portrait.png",
-      prompt: "Ultra-realistic cinematic studio portrait of a confident young South Asian man smiling, wearing black aviator sunglasses and a slim gold coin pendant necklace. Black crewneck t-shirt, short textured fade haircut. Pitch black background with dramatic swirling smoke, vibrant dual rim lighting with warm golden-amber on one side and cool neon blue on the other. 8k resolution, crisp studio lighting, photorealistic details."
-    }
+          const myAIPrompts = [
+      {
+        title: "Photo 1 - Golden Hour Sunset",
+        image: "sunset-portrait.jpg",
+        prompt: "Ultra-realistic cinematic side-profile portrait of a young South Asian man during golden hour. Natural textured skin with fine pores, modern textured crop fade hairstyle, subtle beard, wearing a casual black t-shirt with a neck strap. Warm golden sunlight illuminating the edge of his face (rim lighting), dreamy soft-focus blurred outdoor background with gentle bokeh, captured on 85mm lens, f/1.4 aperture, hyper-detailed, photorealistic, 8k resolution, cinematic color grading --ar 9:16 --v 6.0",
+        category: "portrait"
+      },
+      {
+        title: "Photo 2 - Shattered Glass Portal",
+        image: "glass-shards.png",
+        prompt: "A high-concept surreal portrait of a man looking intensely at the camera, shot through a fractured, shattered crystal-clear glass mirror. Sharp reflections, floating sharp glass shards with optical dispersion and chromatic aberration, dramatic moody studio chiaroscuro lighting, deep shadows, ultra-sharp facial features, cinematic atmosphere, Hasselblad H6D-100c, 100mm macro lens, 8k, photorealistic masterpiece --ar 9:16 --v 6.0",
+        category: "creative"
+      },
+      {
+        title: "Photo 3 - Dual Tone Smoke Portrait",
+        image: "dark-portrait.png",
+        prompt: "An ultra-realistic dramatic studio portrait of a man emerging from thick dense atmospheric smoke and haze. Dual-tone neon cinematic lighting with strong cyan and magenta edge glow, deep velvet black shadows, striking eye contact, wet texture reflections, detailed hair and skin realism, shot on Sony A7R V with 50mm f/1.2 lens, cinematic aesthetic, highly detailed, 8k --ar 9:16 --v 6.0",
+        category: "dark"
+      }
+    ];
 
   ];
 
@@ -329,6 +371,18 @@
         }, 2000);
       });
     }
+        function filterCategory(category, btnElement) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      if (category === 'all') {
+        renderCards(myAIPrompts);
+      } else {
+        const filtered = myAIPrompts.filter(item => item.category === category);
+        renderCards(filtered);
+      }
+    }
+
   </script>
 </body>
 </html>
