@@ -299,95 +299,100 @@
 
   </div>
 
-  <script>
-          const myAIPrompts = [
-      {
-        title: "Photo 1 - Golden Hour Sunset",
-        image: "sunset-portrait.jpg",
-        prompt: "Ultra-realistic cinematic side-profile portrait of a young South Asian man during golden hour. Natural textured skin with fine pores, modern textured crop fade hairstyle, subtle beard, wearing a casual black t-shirt with a neck strap. Warm golden sunlight illuminating the edge of his face (rim lighting), dreamy soft-focus blurred outdoor background with gentle bokeh, captured on 85mm lens, f/1.4 aperture, hyper-detailed, photorealistic, 8k resolution, cinematic color grading --ar 9:16 --v 6.0",
-        category: "portrait"
-      },
-      {
-        title: "Photo 2 - Shattered Glass Portal",
-        image: "glass-shards.png",
-        prompt: "A high-concept surreal portrait of a man looking intensely at the camera, shot through a fractured, shattered crystal-clear glass mirror. Sharp reflections, floating sharp glass shards with optical dispersion and chromatic aberration, dramatic moody studio chiaroscuro lighting, deep shadows, ultra-sharp facial features, cinematic atmosphere, Hasselblad H6D-100c, 100mm macro lens, 8k, photorealistic masterpiece --ar 9:16 --v 6.0",
-        category: "creative"
-      },
-      {
-        title: "Photo 3 - Dual Tone Smoke Portrait",
-        image: "dark-portrait.png",
-        prompt: "An ultra-realistic dramatic studio portrait of a man emerging from thick dense atmospheric smoke and haze. Dual-tone neon cinematic lighting with strong cyan and magenta edge glow, deep velvet black shadows, striking eye contact, wet texture reflections, detailed hair and skin realism, shot on Sony A7R V with 50mm f/1.2 lens, cinematic aesthetic, highly detailed, 8k --ar 9:16 --v 6.0",
-        category: "dark"
-      }
-    ];
-
+<script>
+  const myAIPrompts = [
+    {
+      title: "Photo 1 - Golden Hour Sunset",
+      image: "sunset-portrait.jpg",
+      prompt: "Ultra-realistic cinematic side-profile portrait of a young South Asian man during golden hour. Natural textured skin with fine pores, modern textured crop fade hairstyle, subtle beard, wearing a casual black t-shirt with a neck strap. Warm golden sunlight illuminating the edge of his face (rim lighting), dreamy soft-focus blurred outdoor background with gentle bokeh, captured on 85mm lens, f/1.4 aperture, hyper-detailed, photorealistic, 8k resolution, cinematic color grading --ar 9:16 --v 6.0",
+      category: "portrait"
+    },
+    {
+      title: "Photo 2 - Shattered Glass Portal",
+      image: "glass-shards.png",
+      prompt: "A high-concept surreal portrait of a man looking intensely at the camera, shot through a fractured, shattered crystal-clear glass mirror. Sharp reflections, floating sharp glass shards with optical dispersion and chromatic aberration, dramatic moody studio chiaroscuro lighting, deep shadows, ultra-sharp facial features, cinematic atmosphere, Hasselblad H6D-100c, 100mm macro lens, 8k, photorealistic masterpiece --ar 9:16 --v 6.0",
+      category: "creative"
+    },
+    {
+      title: "Photo 3 - Dual Tone Smoke Portrait",
+      image: "dark-portrait.png",
+      prompt: "An ultra-realistic dramatic studio portrait of a man emerging from thick dense atmospheric smoke and haze. Dual-tone neon cinematic lighting with strong cyan and magenta edge glow, deep velvet black shadows, striking eye contact, wet texture reflections, detailed hair and skin realism, shot on Sony A7R V with 50mm f/1.2 lens, cinematic aesthetic, highly detailed, 8k --ar 9:16 --v 6.0",
+      category: "dark"
+    }
   ];
 
+  const cardsList = document.getElementById('cardsList');
+  const noResultsText = document.getElementById('noResultsText');
 
-    const cardsList = document.getElementById('cardsList');
-
-    function renderCards(data) {
-      cardsList.innerHTML = '';
-      data.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'ai-item-card';
-        card.innerHTML = `
-          <div class="photo-preview">
-            <img src="${item.image}" alt="${item.title}" onerror="this.parentElement.innerHTML='🖼️ [ ${item.title} Preview ]'">
-          </div>
-          <div class="prompt-box">
-            <div class="prompt-text">${item.prompt}</div>
-            <button class="copy-btn" onclick="copyPrompt('${item.prompt.replace(/'/g, "\\'")}', this)">📋 Copy Prompt</button>
-          </div>
-        `;
-        cardsList.appendChild(card);
-      });
+  function renderCards(data) {
+    if (!cardsList) return;
+    cardsList.innerHTML = '';
+    
+    if (data.length === 0) {
+      if (noResultsText) noResultsText.style.display = 'block';
+      return;
     }
+    if (noResultsText) noResultsText.style.display = 'none';
 
-    renderCards(myAIPrompts);
-
-    function filterCards() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = myAIPrompts.filter(item => 
-        item.prompt.toLowerCase().includes(query) || 
-        item.title.toLowerCase().includes(query)
-      );
-      renderCards(filtered);
-      document.getElementById('noResultsText').style.display = filtered.length === 0 ? 'block' : 'none';
-    }
-
-    function toggleGallery() {
-  const box = document.getElementById('myGallery');
-  if (box.style.display === 'block') {
-    box.style.display = 'none';
-  } else {
-    box.style.display = 'block';
+    data.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'ai-item-card';
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.title}" style="width: 100%; border-radius: 8px; margin-bottom: 8px; object-fit: cover;">
+        <h3 style="font-size: 15px; margin-bottom: 6px; color: #fff;">${item.title}</h3>
+        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 10px; line-height: 1.4;">${item.prompt}</p>
+        <button onclick="copyPrompt('${item.prompt.replace(/'/g, "\\'")}', this)" style="background: #2b3040; color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; width: 100%; font-weight: 600;">📋 Copy Prompt</button>
+      `;
+      cardsList.appendChild(card);
+    });
   }
-}
 
+  // Pehli baar cards render karein
+  renderCards(myAIPrompts);
 
-    function copyPrompt(text, btn) {
-      navigator.clipboard.writeText(text).then(() => {
-        btn.innerText = '✅ Copied!';
-        btn.style.background = '#25d366';
-        setTimeout(() => {
-          btn.innerText = '📋 Copy Prompt';
-          btn.style.background = '#2b3040';
-        }, 2000);
-      });
+  function filterCards() {
+    const input = document.getElementById('searchInput');
+    const query = input ? input.value.toLowerCase() : '';
+    const filtered = myAIPrompts.filter(item =>
+      item.prompt.toLowerCase().includes(query) ||
+      item.title.toLowerCase().includes(query)
+    );
+    renderCards(filtered);
+  }
+
+  function toggleGallery() {
+    const box = document.getElementById('myGallery');
+    if (!box) return;
+    if (box.style.display === 'block') {
+      box.style.display = 'none';
+    } else {
+      box.style.display = 'block';
     }
-        function filterCategory(category, btnElement) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      btnElement.classList.add('active');
+  }
 
-      if (category === 'all') {
-        renderCards(myAIPrompts);
-      } else {
-        const filtered = myAIPrompts.filter(item => item.category === category);
-        renderCards(filtered);
-      }
+  function copyPrompt(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.innerText = '✅ Copied!';
+      btn.style.background = '#25d366';
+      setTimeout(() => {
+        btn.innerText = '📋 Copy Prompt';
+        btn.style.background = '#2b3040';
+      }, 2000);
+    });
+  }
+
+  function filterCategory(category, btnElement) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    if (btnElement) btnElement.classList.add('active');
+
+    if (category === 'all') {
+      renderCards(myAIPrompts);
+    } else {
+      const filtered = myAIPrompts.filter(item => item.category === category);
+      renderCards(filtered);
     }
+  }
+</script>
 
-  </script>
 </body>
 </html>
