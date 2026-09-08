@@ -372,6 +372,45 @@
       <div id="cardsList"></div>
       <div id="noResultsText" class="no-results">Koi matching prompt nahi mila 😕</div>
     </div>
+        <!-- Covers & Thumbnails Clickable Card -->
+    <div class="card card-clickable" onclick="toggleThumbnailGallery()" style="margin-top: 15px;">
+      <div class="card-title">THUMBNAILS & COVERS ▾</div>
+      <div class="card-desc">YouTube (16:9) & Insta Reels/Shorts (9:16) Designs (Tap to Open)</div>
+    </div>
+
+    <!-- Covers & Thumbnails Drawer -->
+    <div class="gallery-box" id="thumbnailGallery" style="display: none;">
+      <div style="display: flex; flex-direction: column; gap: 18px; margin-top: 10px;">
+        
+        <!-- Format 1: 16:9 YouTube Thumbnail -->
+        <div class="ai-item-card" style="padding: 12px; background: #131722; border-radius: 10px; border: 1px solid #232936;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="background: #ef4444; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; letter-spacing: 0.5px;">▶ YOUTUBE (16:9)</span>
+            <span style="background: #22c55e; color: #000; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: bold;">₹99</span>
+          </div>
+          <img src="poster1.jpg" alt="YouTube Thumbnail 16:9" style="width: 100%; border-radius: 8px; aspect-ratio: 16/9; object-fit: cover; display: block;">
+          <h3 style="font-size: 14px; color: #fff; margin: 8px 0 4px 0;">High CTR YouTube Thumbnail</h3>
+          <p style="font-size: 12px; color: #94a3b8; margin: 0 0 10px 0;">Catchy 3D text, glow effects & click-optimized composition.</p>
+          <a href="https://wa.me/919106045564?text=Hi%20AR%20PICTURE,%20I%20want%20to%20order%20a%2016:9%20YouTube%20Thumbnail" target="_blank" class="link-btn btn-whatsapp" style="padding: 8px; font-size: 12px; text-decoration: none; display: block; text-align: center; border-radius: 6px;">💬 Order 16:9 Design</a>
+        </div>
+
+        <!-- Format 2: 9:16 Instagram Reel / YouTube Shorts Cover -->
+        <div class="ai-item-card" style="padding: 12px; background: #131722; border-radius: 10px; border: 1px solid #232936;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="background: linear-gradient(45deg, #f09433, #dc2743); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; letter-spacing: 0.5px;">📸 REELS / SHORTS (9:16)</span>
+            <span style="background: #22c55e; color: #000; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: bold;">₹79</span>
+          </div>
+          <div style="max-width: 220px; margin: 0 auto;">
+            <img src="poster2.jpg" alt="Instagram Reels Cover 9:16" style="width: 100%; border-radius: 8px; aspect-ratio: 9/16; object-fit: cover; display: block;">
+          </div>
+          <h3 style="font-size: 14px; color: #fff; margin: 8px 0 4px 0; text-align: center;">Reels & Shorts Vertical Cover</h3>
+          <p style="font-size: 12px; color: #94a3b8; margin: 0 0 10px 0; text-align: center;">Aesthetic Instagram feed matching cover & viral styling.</p>
+          <a href="https://wa.me/919106045564?text=Hi%20AR%20PICTURE,%20I%20want%20to%20order%20a%209:16%20Reels%20Cover" target="_blank" class="link-btn btn-whatsapp" style="padding: 8px; font-size: 12px; text-decoration: none; display: block; text-align: center; border-radius: 6px;">💬 Order 9:16 Cover</a>
+        </div>
+
+      </div>
+    </div>
+
 
     <!-- Mini Compact Social Icons -->
 <div style="display: flex; gap: 14px; justify-content: center; margin: 8px 0;">
@@ -540,6 +579,15 @@
     } else {
       const waUrl = `https://wa.me/?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
       window.open(waUrl, '_blank');
+    }
+  }
+  function toggleThumbnailGallery() {
+    const thumbBox = document.getElementById('thumbnailGallery');
+    if (!thumbBox) return;
+    if (thumbBox.style.display === 'block') {
+      thumbBox.style.display = 'none';
+    } else {
+      thumbBox.style.display = 'block';
     }
   }
 
