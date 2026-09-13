@@ -622,6 +622,41 @@
       thumbBox.style.display = 'block';
     }
   }
+  function toggleLike(btn, id, defaultCount) {
+    const countSpan = btn.querySelector('.like-count');
+    const isLiked = localStorage.getItem('liked_' + id) === 'true';
+    let count = parseInt(localStorage.getItem('count_' + id)) || defaultCount;
+
+    if (isLiked) {
+      count--;
+      localStorage.setItem('liked_' + id, 'false');
+      btn.classList.remove('liked');
+    } else {
+      count++;
+      localStorage.setItem('liked_' + id, 'true');
+      btn.classList.add('liked');
+    }
+    localStorage.setItem('count_' + id, count);
+    countSpan.innerText = count;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      const onclickAttr = btn.getAttribute('onclick');
+      if (onclickAttr) {
+        const match = onclickAttr.match(/'([^']+)',\s*(\d+)/);
+        if (match) {
+          const id = match[1];
+          const defaultCount = parseInt(match[2]);
+          const isLiked = localStorage.getItem('liked_' + id) === 'true';
+          const savedCount = localStorage.getItem('count_' + id);
+          const count = savedCount ? parseInt(savedCount) : defaultCount;
+          btn.querySelector('.like-count').innerText = count;
+          if (isLiked) btn.classList.add('liked');
+        }
+      }
+    });
+  });
 
 </script>
 
